@@ -15,10 +15,10 @@ def pdf2jpeg(filePath):
 
 
     #convert pdf to jpg, output to location in assets folder, output as outputName + .jpg
-    images = convert_from_path(filePath, dpi = 300, fmt = "jpeg", first_page= 1, single_file=True, output_folder= "/Users/andrewding/Desktop/ocrF21/src/assets/convertedPDFs", output_file= outputName)
+    images = convert_from_path(filePath, dpi = 300, fmt = "jpeg", first_page= 1, single_file=True, output_folder= outputDirectory, output_file= outputName)
 
 
-directory = '/Users/andrewding/Desktop/ocrF21/src/assets/f21_pdfs'
+directory = os.getcwd() + '/assets/f21_pdfs'
 
 
 #list all files in pdf directory, convert them to jpg if they end with '.pdf'
