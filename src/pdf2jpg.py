@@ -3,22 +3,16 @@ from pdf2image import convert_from_path
 import os
 
 
-
-#images = convert_from_path('/Users/andrewding/Desktop/ocrF21/assets/f21_pdfs/20087677.pdf', dpi = 300, fmt = "jpeg", first_page= 1, single_file=True, output_folder= "/Users/andrewding/Desktop/ocrF21/assets/convertedPDFs", output_file= fileName)
-
-
+#take in file path name, convert to pdf to output directory within project folder, don't need to check for redudancy, if it exists it will be overwritten
 def pdf2jpeg(filePath):
     
     #extract string between last / and .pdf to use as output file name
     outputName = filePath[filePath.rfind('/') + 1 : filePath.rfind('.pdf')] 
     outputDirectory =  os.getcwd() + '/assets/convertedPDFs'
-
-
+   
     #convert pdf to jpg, output to location in assets folder, output as outputName + .jpg
     images = convert_from_path(filePath, dpi = 300, fmt = "jpeg", first_page= 1, single_file=True, output_folder= outputDirectory, output_file= outputName)
 
-
-directory = os.getcwd() + '/assets/f21_pdfs'
 
 
 #list all files in pdf directory, convert them to jpg if they end with '.pdf'
@@ -28,4 +22,6 @@ def directory_to_jpeg(directory):
         if file.endswith('.pdf'):
             pdf2jpeg(os.path.join(directory, file))    #run pdf2jpeg on full path of each file in directory
 
+
+directory = os.getcwd() + '/assets/f21_pdfs'
 directory_to_jpeg(directory)
