@@ -19,7 +19,7 @@ def create_data_directories(groupedDataDirectory, fileName):
         print(error)
 
 
-
+#crop IHD box from jpg, save as new jpg called ihd.jpg
 def cropIHD(sourceImage, outputFolder):
     imgPath = sourceImage
     outputFilePath = outputFolder + '/ihd.jpg'
@@ -27,7 +27,7 @@ def cropIHD(sourceImage, outputFolder):
     ihdTag = img[638:750, 1175:1438]
     cv2.imwrite(outputFilePath, ihdTag)
 
-
+#crop PO box from jpg, save as new jpg called po.jpg
 def cropPO(sourceImage, outputFolder):
     imgPath = sourceImage
     outputFilePath = outputFolder + '/po.jpg'
@@ -35,11 +35,19 @@ def cropPO(sourceImage, outputFolder):
     poTag = img[1255:1385, 145:350]
     cv2.imwrite(outputFilePath, poTag)
 
+#crop Style box from jpg, save as new jpg called style.jpg in respective folder
 def cropStyle(sourceImage, outputFolder):
-    pass
+    imgPath = sourceImage
+    outputFilePath = outputFolder + '/style.jpg'
+    img = cv2.imread(imgPath)
+    styleTag = img[1255:1385, 350:605]
+    cv2.imwrite(outputFilePath, styleTag)
+    
   
-
+#pass in converted PO jpg directory, create directory from each file, extract necessary data and store in directory packages
 def extract_directory_data(directory):
+
+    #create list of all file Names in directory
     directoryList = os.listdir(directory)
 
     #create full path to extracted data folder in 'assets'. Going to append the new organized data folders to this in the loop
@@ -63,6 +71,7 @@ def extract_directory_data(directory):
                 #run ExtractStyle()
                 cropIHD(sourceImage, targetFolder)
                 cropPO(sourceImage, targetFolder)
+                cropStyle(sourceImage, targetFolder)
                 break
             
 
@@ -75,5 +84,6 @@ targetDirectory = '/Users/andrewding/Desktop/ocrF21/src/assets/convertedPDFs'
 
 #extract_directory_data(targetDirectory)
 
-string = pytesseract.image_to_string(Image.open('src/IHDtag.jpg'))
+s
+
 
