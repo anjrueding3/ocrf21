@@ -12,6 +12,7 @@ def pdf2jpeg(filePath):
    
     #convert pdf to jpg, output to location in assets folder, output as outputName + .jpg
     images = convert_from_path(filePath, dpi = 300, fmt = "jpeg", first_page= 1, single_file=True, output_folder= outputDirectory, output_file= outputName)
+    print('PDF converted and stored in ' + outputDirectory)
 
 
 
@@ -21,7 +22,3 @@ def directory_to_jpeg(directory):
     for file in directoryList:
         if file.endswith('.pdf'):
             pdf2jpeg(os.path.join(directory, file))    #run pdf2jpeg on full path of each file in directory
-
-
-directory = os.getcwd() + '/assets/f21_pdfs'
-directory_to_jpeg(directory)
