@@ -26,14 +26,18 @@ def cropIHD(sourceImage, outputFolder):
     img = cv2.imread(imgPath)
     ihdTag = img[638:750, 1175:1438]
     cv2.imwrite(outputFilePath, ihdTag)
+
+
+def cropPO(sourceImage, outputFolder):
+    imgPath = sourceImage
+    outputFilePath = outputFolder + '/po.jpg'
+    img = cv2.imread(imgPath)
+    poTag = img[1255:1385, 145:350]
+    cv2.imwrite(outputFilePath, poTag)
+
+def cropStyle(sourceImage, outputFolder):
+    pass
   
-
-
-
-
-
-
-
 
 def extract_directory_data(directory):
     directoryList = os.listdir(directory)
@@ -58,17 +62,18 @@ def extract_directory_data(directory):
                 #run ExtractIHD()
                 #run ExtractStyle()
                 cropIHD(sourceImage, targetFolder)
+                cropPO(sourceImage, targetFolder)
                 break
             
 
 
 
 
+
+
 targetDirectory = '/Users/andrewding/Desktop/ocrF21/src/assets/convertedPDFs'
 
-extract_directory_data(targetDirectory) == '/Users/andrewding/Desktop/ocrF21/src/assets/extracted'
+#extract_directory_data(targetDirectory)
 
-
-
-
+string = pytesseract.image_to_string(Image.open('src/IHDtag.jpg'))
 
