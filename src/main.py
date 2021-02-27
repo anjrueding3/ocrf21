@@ -1,5 +1,6 @@
-#import pdf2jpg as convert
+import pdf2jpg as convert
 import extractPDF
+import jpg2data
 import os
 
 # 1. convert.directory_to_jpeg(/f21_pdfs)
@@ -18,10 +19,10 @@ import os
 # Need to think of potential bugs
 
 
-
+##### PROGRAM FLOW ######
 
 # 1. Pass in PDF Directory, convert to 'convertedPDFs' Folder
-# convert.directory_to_jpeg('full path Name' + src/assets/f21_pdfs)
+#convert.directory_to_jpeg('/Users/andrewding/Desktop/ocrF21/src/assets/f21_pdfs')
 
 
 #2. directory to pass into extract_directory_data()
@@ -29,8 +30,11 @@ import os
 #extractPDF.extract_directory_data(imageFolder)
 
 
-#3. Convert every individual order data folder in 'extracted' into a text, pass into object
-
+#3. Convert every individual order data folder in 'extracted' into a text, pass into object. Create new class readFromExtracted
+#import jpg2data
+#objectList = jpg2data.read2Data(extractedDirectory)
+#for data in objectList:
+    #data.getInfo()
 
 
 

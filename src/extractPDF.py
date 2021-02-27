@@ -43,7 +43,7 @@ def cropStyle(sourceImage, outputFolder):
     styleTag = img[1255:1385, 350:605]
     cv2.imwrite(outputFilePath, styleTag)
     
-    
+
   
 #pass in converted PO jpg directory, create directory from each file, extract necessary data and store in directory packages
 def extract_directory_data(directory):
@@ -75,6 +75,3 @@ def extract_directory_data(directory):
                 cropStyle(sourceImage, targetFolder)
                 break
             
-
-
-
