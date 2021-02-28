@@ -32,9 +32,12 @@ import os
 
 #3. Convert every individual order data folder in 'extracted' into a text, pass into object. Create new class readFromExtracted
 #import jpg2data
-#objectList = jpg2data.read2Data(extractedDirectory)
-#for data in objectList:
-    #data.getInfo()
+#objectList = jpg2data.read2Data('/Users/andrewding/Desktop/ocrF21/src/assets/extracted')
+##for data in objectList:
+    #print(data.getPO())
+
+
+#4 Now I have the object list. Time to extract data into excel file.
 
 
 
