@@ -51,6 +51,12 @@ def extract_directory_data(directory):
     #create list of all file Names in directory
     directoryList = os.listdir(directory)
 
+    #check for that pesky DS_Store and remove it
+    for listedFile in directoryList:
+        if '.DS_Store' in listedFile:
+            directoryList.remove(listedFile)
+
+
     #create full path to extracted data folder in 'assets'. Going to append the new organized data folders to this in the loop
     groupedDataDirectoryPath = directory[:directory.rfind('/')] + '/extracted'
 
