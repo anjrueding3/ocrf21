@@ -1,8 +1,10 @@
+#! python3
+
 import pdf2jpg as convert
 import extractPDF
 import jpg2data
 import updateExcel
-import os
+import os, sys
 
 # 1. convert.directory_to_jpeg(/f21_pdfs)
 
@@ -23,23 +25,35 @@ import os
 ##### PROGRAM FLOW ######
 
 # 1. Pass in PDF Directory, convert to 'convertedPDFs' Folder
-convert.directory_to_jpeg('/Users/andrewding/Desktop/ocrF21/src/assets/f21_pdfs')
+
+if len(sys.argv) < 2:
+    print('Usage: Add source PDF folder and target Excel file. 3 Args')
+    sys.exit()
+
+
+sourcePDF = sys.argv[1]
+targetExcel = sys.argv[2]
+convertedImageFolder = os.getcwd() + '/assets/convertedPDFs'
+extractedFolders = os.getcwd() + '/assets/extracted'
+
+
+convert.directory_to_jpeg(sourcePDF)
 
 
 #2. directory to pass into extract_directory_data()
-imageFolder = os.getcwd() + '/src/assets/convertedPDFs'
-extractPDF.extract_directory_data(imageFolder)
+#imageFolder = os.getcwd() + '/src/assets/convertedPDFs'
+extractPDF.extract_directory_data(convertedImageFolder)
 
 
 #3. Convert every individual order data folder in 'extracted' into a text, pass into object. Create new class readFromExtracted
 #import jpg2data
-objectList = jpg2data.read2Data('/Users/andrewding/Desktop/ocrF21/src/assets/extracted')
+objectList = jpg2data.read2Data(extractedFolders)
 ##for data in objectList:
     #print(data.getPO())
 
 
 #4 Now I have the object list. Time to extract data into excel file.
-targetExcel = '/Users/andrewding/Desktop/targetExcel.xlsx'
+
 updateExcel.updateExcel(objectList, targetExcel)
 
 

@@ -8,7 +8,7 @@ def pdf2jpeg(filePath):
     
     #extract string between last / and .pdf to use as output file name
     outputName = filePath[filePath.rfind('/') + 1 : filePath.rfind('.pdf')] 
-    outputDirectory =  os.getcwd() + '/src/assets/convertedPDFs'
+    outputDirectory =  os.getcwd() + '/assets/convertedPDFs'
    
     #convert pdf to jpg, output to location in assets folder, output as outputName + .jpg
     images = convert_from_path(filePath, dpi = 300, fmt = "jpeg", first_page= 1, single_file=True, output_folder= outputDirectory, output_file= outputName)
@@ -22,3 +22,5 @@ def directory_to_jpeg(directory):
     for file in directoryList:
         if file.endswith('.pdf'):
             pdf2jpeg(os.path.join(directory, file))    #run pdf2jpeg on full path of each file in directory
+
+#/Users/andrewding/Desktop/ocrF21/src/assets/f21_pdfs + 
