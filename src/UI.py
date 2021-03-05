@@ -36,29 +36,62 @@ def clearFolderPopup():
     clearPopup.geometry("500x500")
     tk.Label(clearPopup, text = "MUST CLEAR FOLDERS BEFORE PROCEEDING!!").pack(padx = 50, pady = 200)
 
+
+############################### !!!!!!!!!!!  SENSITIVE CODE. BE CAREFUL DONT DELETE ALL YOUR FILES  !!!!!!!! ##################################
+
 #function called by clear button
 def clearFolders():
 
+    #specify pdfs folder path in assets, list all files so i can loop through and delete them
     pdfFolder = os.getcwd() + '/assets/f21_pdfs'
     pdfList = os.listdir(pdfFolder)
     for files in pdfList:
-        if files.endswith('pdf'):
-            print(os.path.join(pdfFolder, files))
+        #if they end with pdf or are DS.Store, then delete them
+        if files.endswith('pdf') or files.endswith('Store'):
+            os.remove(os.path.join(pdfFolder, files))
+            print('REMOVING '  + os.path.join(pdfFolder,files))
+    #log to console
+    if len(os.listdir(pdfFolder)) == 0:
+        print(pdfFolder + ' is clear!\n\n')
 
+    #specify convertedPDFS path, list all files, loop through and delete.
     convertedFolder = os.getcwd() + '/assets/convertedPDFs'
     convertedList = os.listdir(convertedFolder)
     for files in convertedList:
-        if files.endswith('jpg'):
-            print(os.path.join(convertedFolder, files))
+        #if files are jpg or DS.Store, then delete
+        if files.endswith('jpg') or files.endswith('Store'):
+            os.remove(os.path.join(convertedFolder, files))
+            print('REMOVING ' + os.path.join(convertedFolder, files))
+    #log to console
+    if len(os.listdir(convertedFolder)) == 0:
+        print(convertedFolder + ' is clear!\n\n')
 
     extractedFolder = os.getcwd() + '/assets/extracted'
     extractedList = os.listdir(extractedFolder)
+    #for files within extracted, if it ends with Store, remove it, if its a directory, empty it's contents, then delete it
     for files in extractedList:
-        print(os.path.join(extractedFolder, files))
+        if files.endswith('Store'):
+            os.remove(os.path.join(extractedFolder, files))
+            print('REMOVING ' + os.path.join(extractedFolder, files))
+        else:
+            #inner directory is full path + direcotry name(aka files)
+            innerDirectory = os.path.join(extractedFolder, files)
+            fileList = os.listdir(innerDirectory)
+            #for jpg files in each inner directory. Remove it so we can delete the directory
+            for jpg in fileList:
+                os.remove(os.path.join(innerDirectory, jpg))
+                print('REMOVING ' + os.path.join(innerDirectory, jpg))
 
-    
+        os.rmdir(os.path.join(extractedFolder, files))
+        print('REMOVING DIRECTORY ' + os.path.join(extractedFolder, files))
 
-    
+    if len(os.listdir(extractedFolder)) == 0:
+        print(extractedFolder + ' is clear!\n\n')
+            
+        
+
+################################# !!!!!!!!!!!  SENSITIVE CODE. BE CAREFUL DON"T DELETE ALL YOUR FILES PLEASEEE  !!!!!!!! ###################################
+
 
 
 #executes entire program when button clicked
@@ -67,11 +100,16 @@ def clearFolders():
 def getStuff():
 
     #if this directory isn't empty, notify. This DS.store is mesesing with me again. 
-    if os.listdir(os.getcwd() + '/assets/convertedPDFs') != 0:
+    if len(os.listdir(os.getcwd() + '/assets/convertedPDFs')) != 0:
         clearFolderPopup()
+
+    #if it is empty, then run the data extraction methods. THIS IS PRETTY MUCH THE NEW MAIN LOGIC
     else:
         sourcePDF = pdfPathBox.get()
         targetExcel = excelBox.get()
+
+        #add if logic, to check if sourcePDF path ends with 'pdfs', or if targetExcel ends with '.xlsx' to confirm the correct path.
+
         convertedImageFolder = os.getcwd() + '/assets/convertedPDFs'
         extractedFolders = os.getcwd() + '/assets/extracted'
         convert.directory_to_jpeg(sourcePDF)
@@ -106,5 +144,6 @@ clearLabel.grid(row = 5, column = 0, pady = (75, 0))
 #create clear button, calls deleteFolders() when clicked
 clearButton = tk.Button(window, text = 'Clear', command = clearFolders)
 clearButton.grid(row = 6, column = 0, sticky = tk.E, pady = 25, padx = 245)
+
 
 window.mainloop()
